@@ -12,6 +12,7 @@ var templatePhoto = document.querySelector('#picture').content.querySelector('.p
 var photoContainer = document.querySelector('.pictures');
 var fragment = document.createDocumentFragment();
 
+
 var createRandomCount = function (num) {
   return Math.floor(Math.random() * num);
 };
@@ -55,3 +56,55 @@ for (var i = 0; i < 25; i++) {
 }
 
 photoContainer.appendChild(fragment);
+
+var ESC_KEYCODE = 27;
+var uploadFile = document.querySelector('#upload-file');
+var uploadCancel = document.querySelector('#upload-cancel');
+var uploadOverlay = document.querySelector('.img-upload__overlay');
+var effectRadios = document.querySelectorAll('.effects__radio');
+var uploadImage = document.querySelector('.img-upload__preview img');
+var effectLevelPin = uploadOverlay.querySelector('.effect-level__pin');
+var effectLevelDepth = uploadOverlay.querySelector('.effect-level__depth');
+var effectLevel = uploadOverlay.querySelector('.img-upload__effect-level');
+
+var onUploadOverlayEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    uploadClose();
+  }
+};
+
+var uploadOpen = function () {
+  uploadOverlay.classList.remove('hidden');
+  document.addEventListener('keydown', onUploadOverlayEscPress);
+};
+
+var uploadClose = function () {
+  uploadOverlay.classList.add('hidden');
+  document.addEventListener('keydown', onUploadOverlayEscPress);
+};
+
+
+uploadFile.addEventListener('change', uploadOpen);
+
+uploadCancel.addEventListener('click', uploadClose);
+
+effectLevel.classList.add('hidden');
+
+var effect = function (effectRadio) {
+  effectRadio.addEventListener('change', function () {
+    uploadImage.classList = '';
+    effectLevelPin.style.left = '100%';
+    effectLevelDepth.style.width = '100%';
+    uploadImage.classList.add('effects__preview--' + effectRadio.value);
+    if ('effects__preview--' + effectRadio.value === 'effects__preview--none') {
+      effectLevel.classList.add('hidden');
+    } else {
+      effectLevel.classList.remove('hidden');
+    }
+  });
+};
+
+for (var i = 0; i < effectRadios.length; i++) {
+  effect(effectRadios[i]);
+}
+
