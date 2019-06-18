@@ -104,7 +104,7 @@ var effect = function (effectRadio) {
   });
 };
 
-for (var i = 0; i < effectRadios.length; i++) {
-  effect(effectRadios[i]);
+for (var k = 0; k < effectRadios.length; k++) {
+  effect(effectRadios[k]);
 }
 
