@@ -20,6 +20,7 @@ var ARRAYNAMES = ['Артем',
 var templatePhoto = document.querySelector('#picture').content.querySelector('.picture');
 var photoContainer = document.querySelector('.pictures');
 var photoFragment = document.createDocumentFragment();
+var comment = document.querySelector('.text__description');
 
 
 var createRandomNumber = function (num) {
@@ -88,9 +89,18 @@ var scaleControlValue = document.querySelector('.scale__control--value');
 var scaleControlBigger = document.querySelector('.scale__control--bigger');
 var scaleControlSmaller = document.querySelector('.scale__control--smaller');
 
+var inputCommentActive = function () {
+  if (document.activeElement === comment) {
+    return true;
+  }
+  return false;
+};
+
 var onUploadOverlayEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    uploadClose();
+    if (inputCommentActive() === false) {
+      uploadClose();
+    }
   }
 };
 
