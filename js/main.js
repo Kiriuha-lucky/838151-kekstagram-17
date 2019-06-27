@@ -2,6 +2,8 @@
 
 var MINLIKES = 15;
 var MAXLIKES = 200;
+var MAXCOMMENTS = 6;
+var USERNUMBER = 6;
 var PHOTOSNUMBER = 25;
 var ARRAYCOMMENTS = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -15,8 +17,8 @@ var ARRAYNAMES = ['Артем',
   'Кристина',
   'Настя',
   'Гоша'];
-var TEMPLATEPHOTO = document.querySelector('#picture').content.querySelector('.picture');
-var PHOTOCONTAINER = document.querySelector('.pictures');
+var templatePhoto = document.querySelector('#picture').content.querySelector('.picture');
+var photoContainer = document.querySelector('.pictures');
 var photoFragment = document.createDocumentFragment();
 
 
@@ -36,11 +38,11 @@ var createRandomComment = function () {
 
 
 var createRandomComments = function () {
-  var randomCount = createRandomNumber(6);
+  var randomCount = createRandomNumber(MAXCOMMENTS);
   var randomComments = [];
   for (var i = randomCount; i > 0; i--) {
     randomComments.push({
-      avatar: 'img/avatar-' + (createRandomNumber(6)) + '.svg',
+      avatar: 'img/avatar-' + (createRandomNumber(USERNUMBER)) + '.svg',
       message: createRandomComment(),
       name: ARRAYNAMES[createRandomNumber(ARRAYNAMES.length)]
     });
@@ -49,7 +51,7 @@ var createRandomComments = function () {
 };
 
 var createPhoto = function (n) {
-  var newPhoto = TEMPLATEPHOTO.cloneNode(true);
+  var newPhoto = templatePhoto.cloneNode(true);
   newPhoto.querySelector('.picture__img').src = 'photos/' + (n + 1).toString() + '.jpg';
   newPhoto.querySelector('.picture__comments').textContent = createRandomComments().length;
   newPhoto.querySelector('.picture__likes').textContent = MINLIKES + createRandomNumber(MAXLIKES - MINLIKES);
@@ -68,23 +70,23 @@ var createContainerPhotos = function () {
   for (var i = 0; i < PHOTOSNUMBER; i++) {
     photoFragment.append(createPhotos()[i]);
   }
-  PHOTOCONTAINER.appendChild(photoFragment);
+  photoContainer.appendChild(photoFragment);
 };
 
 createContainerPhotos();
 
 var ESC_KEYCODE = 27;
-var UPLOADFILE = document.querySelector('#upload-file');
-var UPLOADCANCEL = document.querySelector('#upload-cancel');
-var UPLOADOVERLAY = document.querySelector('.img-upload__overlay');
-var EFFECTRADIOS = document.querySelectorAll('.effects__radio');
-var UPLOADIMAGE = document.querySelector('.img-upload__preview img');
-var EFFECTLEVELPIN = UPLOADOVERLAY.querySelector('.effect-level__pin');
-var EFFECTLEVELDEPTH = UPLOADOVERLAY.querySelector('.effect-level__depth');
-var EFFECTLEVEL = UPLOADOVERLAY.querySelector('.img-upload__effect-level');
-var SCALECONTROLVALUE = document.querySelector('.scale__control--value');
-var SCALECONTROLBIGGER = document.querySelector('.scale__control--bigger');
-var SCALECONTROLSMALLER = document.querySelector('.scale__control--smaller');
+var uploadFile = document.querySelector('#upload-file');
+var uploadCancel = document.querySelector('#upload-cancel');
+var uploadOverlay = document.querySelector('.img-upload__overlay');
+var effectRadios = document.querySelectorAll('.effects__radio');
+var uploadImage = document.querySelector('.img-upload__preview img');
+var effectLevelpin = uploadOverlay.querySelector('.effect-level__pin');
+var effectLeveldepth = uploadOverlay.querySelector('.effect-level__depth');
+var effectLevel = uploadOverlay.querySelector('.img-upload__effect-level');
+var scaleControlValue = document.querySelector('.scale__control--value');
+var scaleControlBigger = document.querySelector('.scale__control--bigger');
+var scaleControlSmaller = document.querySelector('.scale__control--smaller');
 
 var onUploadOverlayEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -93,57 +95,57 @@ var onUploadOverlayEscPress = function (evt) {
 };
 
 var uploadOpen = function () {
-  UPLOADOVERLAY.classList.remove('hidden');
+  uploadOverlay.classList.remove('hidden');
   document.addEventListener('keydown', onUploadOverlayEscPress);
-  SCALECONTROLVALUE.value = '100%';
-  UPLOADIMAGE.style.transform = 'scale(1)';
+  scaleControlValue.value = '100%';
+  uploadImage.style.transform = 'scale(1)';
 };
 
 var uploadClose = function () {
-  UPLOADOVERLAY.classList.add('hidden');
-  UPLOADFILE.value = '';
+  uploadOverlay.classList.add('hidden');
+  uploadFile.value = '';
   document.addEventListener('keydown', onUploadOverlayEscPress);
 };
 
 
-UPLOADFILE.addEventListener('change', uploadOpen);
+uploadFile.addEventListener('change', uploadOpen);
 
-UPLOADCANCEL.addEventListener('click', uploadClose);
+uploadCancel.addEventListener('click', uploadClose);
 
-EFFECTLEVEL.classList.add('hidden');
+effectLevel.classList.add('hidden');
 
-EFFECTRADIOS.forEach(function (effectRadio) {
+effectRadios.forEach(function (effectRadio) {
   effectRadio.addEventListener('change', function () {
-    UPLOADIMAGE.classList = '';
-    EFFECTLEVELPIN.style.left = '100%';
-    EFFECTLEVELDEPTH.style.width = '100%';
-    UPLOADIMAGE.classList.add('effects__preview--' + effectRadio.value);
+    uploadImage.classList = '';
+    effectLevelpin.style.left = '100%';
+    effectLeveldepth.style.width = '100%';
+    uploadImage.classList.add('effects__preview--' + effectRadio.value);
     if ('effects__preview--' + effectRadio.value === 'effects__preview--none') {
-      EFFECTLEVEL.classList.add('hidden');
+      effectLevel.classList.add('hidden');
     } else {
-      EFFECTLEVEL.classList.remove('hidden');
+      effectLevel.classList.remove('hidden');
     }
   });
 });
 
 
 var biggerUploadImage = function () {
-  if (SCALECONTROLVALUE.value === '100%') {
-    SCALECONTROLVALUE.value = '100%';
+  if (scaleControlValue.value === '100%') {
+    scaleControlValue.value = '100%';
   } else {
-    SCALECONTROLVALUE.value = Number.parseInt(SCALECONTROLVALUE.value, 10) + 25 + '%';
-    UPLOADIMAGE.style.transform = 'scale' + '(' + (Number.parseInt(SCALECONTROLVALUE.value, 10)) / 100 + ')';
+    scaleControlValue.value = Number.parseInt(scaleControlValue.value, 10) + 25 + '%';
+    uploadImage.style.transform = 'scale' + '(' + (Number.parseInt(scaleControlValue.value, 10)) / 100 + ')';
   }
 };
 
 var smallerUploadImage = function () {
-  if (SCALECONTROLVALUE.value === '25%') {
-    SCALECONTROLVALUE.value = '25%';
+  if (scaleControlValue.value === '25%') {
+    scaleControlValue.value = '25%';
   } else {
-    SCALECONTROLVALUE.value = Number.parseInt(SCALECONTROLVALUE.value, 10) - 25 + '%';
-    UPLOADIMAGE.style.transform = 'scale' + '(' + (Number.parseInt(SCALECONTROLVALUE.value, 10)) / 100 + ')';
+    scaleControlValue.value = Number.parseInt(scaleControlValue.value, 10) - 25 + '%';
+    uploadImage.style.transform = 'scale' + '(' + (Number.parseInt(scaleControlValue.value, 10)) / 100 + ')';
   }
 };
 
-SCALECONTROLBIGGER.addEventListener('click', biggerUploadImage);
-SCALECONTROLSMALLER.addEventListener('click', smallerUploadImage);
+scaleControlBigger.addEventListener('click', biggerUploadImage);
+scaleControlSmaller.addEventListener('click', smallerUploadImage);
