@@ -90,15 +90,12 @@ var scaleControlBigger = document.querySelector('.scale__control--bigger');
 var scaleControlSmaller = document.querySelector('.scale__control--smaller');
 
 var inputCommentActive = function () {
-  if (document.activeElement === comment) {
-    return true;
-  }
-  return false;
+  return document.activeElement === comment;
 };
 
 var onUploadOverlayEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    if (inputCommentActive() === false) {
+    if (!inputCommentActive()) {
       uploadClose();
     }
   }
