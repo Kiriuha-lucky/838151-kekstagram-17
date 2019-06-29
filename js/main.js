@@ -85,6 +85,8 @@ var uploadImage = document.querySelector('.img-upload__preview img');
 var effectLevelpin = uploadOverlay.querySelector('.effect-level__pin');
 var effectLeveldepth = uploadOverlay.querySelector('.effect-level__depth');
 var effectLevel = uploadOverlay.querySelector('.img-upload__effect-level');
+var effectLevelline = uploadOverlay.querySelector('.effect-level__line');
+var effectLevellineWidth = 453;
 var scaleControlValue = document.querySelector('.scale__control--value');
 var scaleControlBigger = document.querySelector('.scale__control--bigger');
 var scaleControlSmaller = document.querySelector('.scale__control--smaller');
@@ -156,3 +158,71 @@ var smallerUploadImage = function () {
 
 scaleControlBigger.addEventListener('click', biggerUploadImage);
 scaleControlSmaller.addEventListener('click', smallerUploadImage);
+
+effectLevelpin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: effectLevelpin.style.top = '50%'
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: startCoords.y
+    };
+
+    effectLevelpin.style.top = (startCoords.y) + 'px';
+    effectLevelpin.style.left = (effectLevelpin.offsetLeft - shift.x) + 'px';
+    effectLeveldepth.style.width = ((effectLevelpin.offsetLeft - shift.x) * 100 / effectLevellineWidth) + '%';
+
+    if (effectLevelpin.offsetLeft - shift.x < 0) {
+      effectLevelpin.style.left = '0';
+    } else if (effectLevelpin.offsetLeft - shift.x > effectLevellineWidth) {
+      effectLevelpin.style.left = effectLevellineWidth + 'px';
+    }
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
+effectLevelline.addEventListener('click', function (clickEvt) {
+  clickEvt.preventDefault();
+
+  var rect = effectLevelpin.getBoundingClientRect();
+
+  var effectLevelCoords = {
+    x: rect.left,
+    y: effectLevelpin.style.top = '50%'
+  };
+
+  var clickLevelCoords = {
+    x: rect.left - clickEvt.clientX + 9,
+    y: effectLevelpin.style.top = '50%'
+  };
+
+  effectLevelCoords = {
+    x: clickLevelCoords.x,
+    y: effectLevelpin.style.top = '50%'
+  };
+
+  effectLevelpin.style.top = (effectLevelCoords.y) + 'px';
+  effectLevelpin.style.left = (effectLevelpin.offsetLeft - clickLevelCoords.x) + 'px';
+  effectLeveldepth.style.width = ((effectLevelpin.offsetLeft) * 100 / effectLevellineWidth) + '%';
+});
