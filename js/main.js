@@ -124,19 +124,25 @@ uploadCancel.addEventListener('click', uploadClose);
 
 effectLevel.classList.add('hidden');
 
-var effect = function (num) {
-  if (uploadImage.classList.contains('effects__preview--chrome')) {
-    uploadImage.style.filter = 'grayscale(' + 1 * num / 100 + ')';
-  } else if (uploadImage.classList.contains('effects__preview--sepia')) {
-    uploadImage.style.filter = 'sepia(' + 1 * num / 100 + ')';
-  } else if (uploadImage.classList.contains('effects__preview--marvin')) {
-    uploadImage.style.filter = 'invert(' + num + '%)';
-  } else if (uploadImage.classList.contains('effects__preview--phobos')) {
-    uploadImage.style.filter = 'blur(' + 5 * num / 100 + 'px)';
-  } else if (uploadImage.classList.contains('effects__preview--heat')) {
-    uploadImage.style.filter = 'brightness(' + 3 * num / 100 + ')';
-  } else {
-    uploadImage.style.filter = '';
+var setEffect = function (num) {
+  switch (true) {
+    case uploadImage.classList.contains('effects__preview--chrome'):
+      uploadImage.style.filter = 'grayscale(' + 1 * num / 100 + ')';
+      break;
+    case uploadImage.classList.contains('effects__preview--sepia'):
+      uploadImage.style.filter = 'sepia(' + 1 * num / 100 + ')';
+      break;
+    case uploadImage.classList.contains('effects__preview--marvin'):
+      uploadImage.style.filter = 'invert(' + num + '%)';
+      break;
+    case uploadImage.classList.contains('effects__preview--phobos'):
+      uploadImage.style.filter = 'blur(' + 3 * num / 100 + 'px)';
+      break;
+    case uploadImage.classList.contains('effects__preview--heat'):
+      uploadImage.style.filter = 'brightness(' + ((num * (3 - 1) / 100) + 1) + ')';
+      break;
+    default:
+      uploadImage.style.filter = '';
   }
   effectLevelvalue.value = Math.floor(num);
 };
@@ -152,7 +158,7 @@ effectRadios.forEach(function (effectRadio) {
     } else {
       effectLevel.classList.remove('hidden');
     }
-    effect(100);
+    setEffect(100);
   });
 });
 
@@ -182,7 +188,6 @@ effectLevelpin.addEventListener('mousedown', function (evt) {
 
   var startCoords = {
     x: evt.clientX,
-    y: effectLevelpin.style.top = '50%'
   };
 
   var onMouseMove = function (moveEvt) {
@@ -190,18 +195,15 @@ effectLevelpin.addEventListener('mousedown', function (evt) {
 
     var shift = {
       x: startCoords.x - moveEvt.clientX,
-      y: startCoords.y
     };
 
     startCoords = {
       x: moveEvt.clientX,
-      y: startCoords.y
     };
 
-    effectLevelpin.style.top = (startCoords.y) + 'px';
     effectLevelpin.style.left = (effectLevelpin.offsetLeft - shift.x) + 'px';
     effectLeveldepth.style.width = (parseInt(effectLevelpin.style.left, 10) * 100 / effectLevellineWidth) + '%';
-    effect((effectLevelpin.offsetLeft - shift.x) * 100 / effectLevellineWidth);
+    setEffect(parseInt(effectLeveldepth.style.width, 10));
 
 
     if (effectLevelpin.offsetLeft - shift.x < 0) {
@@ -231,21 +233,17 @@ effectLevelline.addEventListener('click', function (clickEvt) {
 
   var effectLevelCoords = {
     x: rect.left,
-    y: effectLevelpin.style.top = '50%'
   };
 
   var clickLevelCoords = {
-    x: rect.left - clickEvt.clientX + 9,
-    y: effectLevelpin.style.top = '50%'
+    x: effectLevelCoords.x - clickEvt.clientX + 9,
   };
 
   effectLevelCoords = {
     x: clickLevelCoords.x,
-    y: effectLevelpin.style.top = '50%'
   };
 
-  effectLevelpin.style.top = (effectLevelCoords.y) + 'px';
   effectLevelpin.style.left = (effectLevelpin.offsetLeft - clickLevelCoords.x) + 'px';
   effectLeveldepth.style.width = ((effectLevelpin.offsetLeft) * 100 / effectLevellineWidth) + '%';
-  effect((effectLevelpin.offsetLeft) * 100 / effectLevellineWidth);
+  setEffect(parseInt(effectLeveldepth.style.width, 10));
 });
