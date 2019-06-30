@@ -86,6 +86,7 @@ var effectLevelpin = uploadOverlay.querySelector('.effect-level__pin');
 var effectLeveldepth = uploadOverlay.querySelector('.effect-level__depth');
 var effectLevel = uploadOverlay.querySelector('.img-upload__effect-level');
 var effectLevelline = uploadOverlay.querySelector('.effect-level__line');
+var effectLevelvalue = uploadOverlay.querySelector('.effect-level__value');
 var effectLevellineWidth = 453;
 var scaleControlValue = document.querySelector('.scale__control--value');
 var scaleControlBigger = document.querySelector('.scale__control--bigger');
@@ -123,6 +124,23 @@ uploadCancel.addEventListener('click', uploadClose);
 
 effectLevel.classList.add('hidden');
 
+var effect = function (num) {
+  if (uploadImage.classList.contains('effects__preview--chrome')) {
+    uploadImage.style.filter = 'grayscale(' + 1 * num / 100 + ')';
+  } else if (uploadImage.classList.contains('effects__preview--sepia')) {
+    uploadImage.style.filter = 'sepia(' + 1 * num / 100 + ')';
+  } else if (uploadImage.classList.contains('effects__preview--marvin')) {
+    uploadImage.style.filter = 'invert(' + num + '%)';
+  } else if (uploadImage.classList.contains('effects__preview--phobos')) {
+    uploadImage.style.filter = 'blur(' + 5 * num / 100 + 'px)';
+  } else if (uploadImage.classList.contains('effects__preview--heat')) {
+    uploadImage.style.filter = 'brightness(' + 3 * num / 100 + ')';
+  } else {
+    uploadImage.style.filter = '';
+  }
+  effectLevelvalue.value = Math.floor(num);
+};
+
 effectRadios.forEach(function (effectRadio) {
   effectRadio.addEventListener('change', function () {
     uploadImage.classList = '';
@@ -134,9 +152,9 @@ effectRadios.forEach(function (effectRadio) {
     } else {
       effectLevel.classList.remove('hidden');
     }
+    effect(100);
   });
 });
-
 
 var biggerUploadImage = function () {
   if (scaleControlValue.value === '100%') {
@@ -183,6 +201,8 @@ effectLevelpin.addEventListener('mousedown', function (evt) {
     effectLevelpin.style.top = (startCoords.y) + 'px';
     effectLevelpin.style.left = (effectLevelpin.offsetLeft - shift.x) + 'px';
     effectLeveldepth.style.width = ((effectLevelpin.offsetLeft - shift.x) * 100 / effectLevellineWidth) + '%';
+    effect((effectLevelpin.offsetLeft - shift.x) * 100 / effectLevellineWidth);
+
 
     if (effectLevelpin.offsetLeft - shift.x < 0) {
       effectLevelpin.style.left = '0';
@@ -225,4 +245,5 @@ effectLevelline.addEventListener('click', function (clickEvt) {
   effectLevelpin.style.top = (effectLevelCoords.y) + 'px';
   effectLevelpin.style.left = (effectLevelpin.offsetLeft - clickLevelCoords.x) + 'px';
   effectLeveldepth.style.width = ((effectLevelpin.offsetLeft) * 100 / effectLevellineWidth) + '%';
+  effect((effectLevelpin.offsetLeft) * 100 / effectLevellineWidth);
 });
