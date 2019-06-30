@@ -200,14 +200,16 @@ effectLevelpin.addEventListener('mousedown', function (evt) {
 
     effectLevelpin.style.top = (startCoords.y) + 'px';
     effectLevelpin.style.left = (effectLevelpin.offsetLeft - shift.x) + 'px';
-    effectLeveldepth.style.width = ((effectLevelpin.offsetLeft - shift.x) * 100 / effectLevellineWidth) + '%';
+    effectLeveldepth.style.width = (parseInt(effectLevelpin.style.left, 10) * 100 / effectLevellineWidth) + '%';
     effect((effectLevelpin.offsetLeft - shift.x) * 100 / effectLevellineWidth);
 
 
     if (effectLevelpin.offsetLeft - shift.x < 0) {
       effectLevelpin.style.left = '0';
+      effectLeveldepth.style.width = '0';
     } else if (effectLevelpin.offsetLeft - shift.x > effectLevellineWidth) {
       effectLevelpin.style.left = effectLevellineWidth + 'px';
+      effectLeveldepth.style.width = '100%';
     }
   };
 
