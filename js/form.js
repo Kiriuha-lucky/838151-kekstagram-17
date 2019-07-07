@@ -50,89 +50,93 @@
   effectLevel.classList.add('hidden');
 
 
-  var chooseEffect;
+  // var chooseEffect;
+  //
+  // var effectSelection = function (effectRadio) {
+  //   uploadImage.classList = '';
+  //   effectLevelpin.style.left = '100%';
+  //   effectLeveldepth.style.width = '100%';
+  //   chooseEffect = effectRadio.value;
+  //   uploadImage.classList.add('effects__preview--' + chooseEffect);
+  //   console.log(uploadImage.classList);
+  //   if ('effects__preview--' + effectRadio.value === 'effects__preview--none') {
+  //     effectLevel.classList.add('hidden');
+  //   } else {
+  //     effectLevel.classList.remove('hidden');
+  //   }
+  //   return chooseEffect;
+  // };
+  //
+  // effectRadios.forEach(function (effectRadio) {
+  //   effectRadio.addEventListener('change', effectSelection() {}
+  //   );
+  // });
+  //
+  //
+  // var setEffect = function (num) {
+  //   var effectStrength;
+  //   switch (uploadImage.classList.contains('effects__preview--' + chooseEffect)) {
+  //     case uploadImage.classList.contains('effects__preview--chrome'):
+  //       effectStrength = 'grayscale(' + 1 * num / 100 + ')';
+  //       break;
+  //     case uploadImage.classList.contains('effects__preview--sepia'):
+  //       effectStrength = 'sepia(' + 1 * num / 100 + ')';
+  //       break;
+  //     case uploadImage.classList.contains('effects__preview--marvin'):
+  //       effectStrength = 'invert(' + num + '%)';
+  //       break;
+  //     case uploadImage.classList.contains('effects__preview--phobos'):
+  //       effectStrength = 'blur(' + 3 * num / 100 + 'px)';
+  //       break;
+  //     case uploadImage.classList.contains('effects__preview--heat'):
+  //       effectStrength = 'brightness(' + ((num * (3 - 1) / 100) + 1) + ')';
+  //       break;
+  //     default:
+  //       effectStrength = '';
+  //   }
+  //   uploadImage.style.filter = effectStrength;
+  //   effectLevelvalue.value = Math.floor(num);
+  // };
+
 
   effectRadios.forEach(function (effectRadio) {
     effectRadio.addEventListener('change', function () {
       uploadImage.classList = '';
       effectLevelpin.style.left = '100%';
       effectLeveldepth.style.width = '100%';
-      chooseEffect = effectRadio.value;
-      uploadImage.classList.add('effects__preview--' + chooseEffect);
+      uploadImage.classList.add('effects__preview--' + effectRadio.value);
       if ('effects__preview--' + effectRadio.value === 'effects__preview--none') {
         effectLevel.classList.add('hidden');
       } else {
         effectLevel.classList.remove('hidden');
       }
-      return chooseEffect;
+      setEffect(100);
     });
   });
 
 
   var setEffect = function (num) {
-    var effectStrength;
-    switch (uploadImage.classList.contains('effects__preview--' + chooseEffect)) {
+    switch (true) {
       case uploadImage.classList.contains('effects__preview--chrome'):
-        effectStrength = 'grayscale(' + 1 * num / 100 + ')';
+        uploadImage.style.filter = 'grayscale(' + 1 * num / 100 + ')';
         break;
       case uploadImage.classList.contains('effects__preview--sepia'):
-        effectStrength = 'sepia(' + 1 * num / 100 + ')';
+        uploadImage.style.filter = 'sepia(' + 1 * num / 100 + ')';
         break;
       case uploadImage.classList.contains('effects__preview--marvin'):
-        effectStrength = 'invert(' + num + '%)';
+        uploadImage.style.filter = 'invert(' + num + '%)';
         break;
       case uploadImage.classList.contains('effects__preview--phobos'):
-        effectStrength = 'blur(' + 3 * num / 100 + 'px)';
+        uploadImage.style.filter = 'blur(' + 3 * num / 100 + 'px)';
         break;
       case uploadImage.classList.contains('effects__preview--heat'):
-        effectStrength = 'brightness(' + ((num * (3 - 1) / 100) + 1) + ')';
+        uploadImage.style.filter = 'brightness(' + ((num * (3 - 1) / 100) + 1) + ')';
         break;
       default:
-        effectStrength = '';
+        uploadImage.style.filter = '';
     }
-    uploadImage.style.filter = effectStrength;
     effectLevelvalue.value = Math.floor(num);
   };
-
-
-  // effectRadios.forEach(function (effectRadio) {
-  //   effectRadio.addEventListener('change', function () {
-  //     uploadImage.classList = '';
-  //     effectLevelpin.style.left = '100%';
-  //     effectLeveldepth.style.width = '100%';
-  //     uploadImage.classList.add('effects__preview--' + effectRadio.value);
-  //     if ('effects__preview--' + effectRadio.value === 'effects__preview--none') {
-  //       effectLevel.classList.add('hidden');
-  //     } else {
-  //       effectLevel.classList.remove('hidden');
-  //     }
-  //     setEffect(100);
-  //   });
-  // });
-
-
-  // var setEffect = function (num) {
-  //   switch (true) {
-  //     case uploadImage.classList.contains('effects__preview--chrome'):
-  //       uploadImage.style.filter = 'grayscale(' + 1 * num / 100 + ')';
-  //       break;
-  //     case uploadImage.classList.contains('effects__preview--sepia'):
-  //       uploadImage.style.filter = 'sepia(' + 1 * num / 100 + ')';
-  //       break;
-  //     case uploadImage.classList.contains('effects__preview--marvin'):
-  //       uploadImage.style.filter = 'invert(' + num + '%)';
-  //       break;
-  //     case uploadImage.classList.contains('effects__preview--phobos'):
-  //       uploadImage.style.filter = 'blur(' + 3 * num / 100 + 'px)';
-  //       break;
-  //     case uploadImage.classList.contains('effects__preview--heat'):
-  //       uploadImage.style.filter = 'brightness(' + ((num * (3 - 1) / 100) + 1) + ')';
-  //       break;
-  //     default:
-  //       uploadImage.style.filter = '';
-  //   }
-  //   effectLevelvalue.value = Math.floor(num);
-  // };
 
 
   var biggerUploadImage = function () {
