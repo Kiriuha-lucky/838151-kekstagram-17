@@ -4,8 +4,9 @@
   var templatePhoto = document.querySelector('#picture').content.querySelector('.picture');
   var photoContainer = document.querySelector('.pictures');
   var photoFragment = document.createDocumentFragment();
+  var filters = document.querySelector('.img-filters');
 
-  window.load(function (photos) {
+  var renderPhotos = function (photos) {
     for (var i = 0; i < photos.length; i++) {
       var newPhoto = templatePhoto.cloneNode(true);
       newPhoto.querySelector('.picture__img').src = photos[i].url;
@@ -14,5 +15,10 @@
       photoFragment.append(newPhoto);
     }
     photoContainer.appendChild(photoFragment);
+  };
+
+  window.load(function (photos) {
+    renderPhotos(photos);
+    filters.classList.remove('img-filters--inactive');
   });
 })();

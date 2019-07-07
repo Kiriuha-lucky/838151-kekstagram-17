@@ -10,7 +10,8 @@
     xhr.open('GET', URL);
 
     xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
+      window.dat = xhr.response;
+      onSuccess(window.dat);
     });
     xhr.send();
   };
