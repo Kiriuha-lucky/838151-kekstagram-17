@@ -5,6 +5,7 @@
   var photoContainer = document.querySelector('.pictures');
   var photoFragment = document.createDocumentFragment();
   var filters = document.querySelector('.img-filters');
+  var photoArray = [];
 
   var renderPhotos = function (photos) {
     for (var i = 0; i < photos.length; i++) {
@@ -21,4 +22,5 @@
     renderPhotos(photos);
     filters.classList.remove('img-filters--inactive');
   });
+
 })();

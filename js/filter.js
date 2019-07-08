@@ -2,14 +2,11 @@
 
 (function () {
   var filterButtons = document.querySelectorAll('.img-filters__button');
-  console.log(filterButtons);
   // var button = {
   //   popular: document.querySelector('#filter-popular'),
   //   new: document.querySelector('#filter-new'),
   //   discussed: document.querySelector('#filter-discussed')
   // };
-
-
 
   filterButtons.forEach(function (filterButton) {
     filterButton.addEventListener('click', function () {
