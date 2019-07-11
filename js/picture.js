@@ -7,6 +7,8 @@
   var filters = document.querySelector('.img-filters');
   var photoArray = [];
 
+  window.load();
+
   var renderPhotos = function (photos) {
     for (var i = 0; i < photos.length; i++) {
       var newPhoto = templatePhoto.cloneNode(true);
@@ -18,9 +20,13 @@
     photoContainer.appendChild(photoFragment);
   };
 
+
   window.load(function (photos) {
+    photoArray = photos;
     renderPhotos(photos);
     filters.classList.remove('img-filters--inactive');
+    return photoArray;
   });
+
 
 })();
