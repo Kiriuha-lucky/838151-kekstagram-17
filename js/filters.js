@@ -7,9 +7,9 @@
 
   filtersButtons.forEach(function (element) {
     element.addEventListener('click', function () {
-      // filtersButtons.forEach(function (button) {
-      //   button.classList.remove('img-filters__button--active');
-      // });
+      filtersButtons.forEach(function (button) {
+        button.classList.remove('img-filters__button--active');
+      });
       element.classList.add('img-filters__button--active');
       activeFilter = element.id;
       sortPhotoses(activeFilter);
