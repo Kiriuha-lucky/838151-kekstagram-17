@@ -2,17 +2,21 @@
 
 (function () {
   var URL = 'https://js.dump.academy/kekstagram/data';
+  window.arrayPhotos = [];
 
-  window.load = function (onSuccess) {
+  window.load = function () {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.open('GET', URL);
 
     xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
+      window.arrayPhotos = Array.from(xhr.response);
+      window.renderPhotos(xhr.response);
     });
+
     xhr.send();
   };
+  window.load();
 })();
 
