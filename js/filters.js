@@ -22,18 +22,16 @@
 
   function getDiscussedPhotos(photos) {
     var copyPhotos = photos.slice();
-    var newPhotos = copyPhotos.sort(function (a, b) {
+    return copyPhotos.sort(function (a, b) {
       return b.comments.length - a.comments.length;
     });
-    return newPhotos;
   }
 
   function getNewPhotos(photos) {
     var copyPhotos = photos.slice();
-    var newPhotos = copyPhotos.sort(function () {
+    return copyPhotos.sort(function () {
       return Math.random() - 0.5;
     }).slice(0, NEW_PICTURES);
-    return newPhotos;
   }
 
   function onFilterButtonClick(buttonElement) {

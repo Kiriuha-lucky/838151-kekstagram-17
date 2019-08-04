@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var COMMENT_COUNT = 5;
   var bigPicture = document.querySelector('.big-picture');

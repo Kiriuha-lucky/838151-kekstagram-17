@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var slider = document.querySelector('.effect-level__pin');
   var levelDepth = document.querySelector('.effect-level__depth');
   var effectsList = document.querySelector('.effects__list');

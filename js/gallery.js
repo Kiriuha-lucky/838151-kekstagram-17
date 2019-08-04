@@ -1,6 +1,6 @@
 'use strict';
-(function () {
 
+(function () {
   var pictureTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');
