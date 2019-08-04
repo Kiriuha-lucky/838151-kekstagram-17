@@ -4,13 +4,13 @@
   var TIMEOUT = 10000;
   var Url = {
     LOAD: 'https://js.dump.academy/kekstagram/data',
-    SAVE: 'https://js.dump.academy/kekstagram'
+    SAVE: 'https://js.dump.academy/kekstagram',
   };
   var Status = {
     STATUS_OK: 200,
     STATUS_INVALID_REQUEST: 400,
     STATUS_RESOURCE_IS_NOT_FOUND: 404,
-    STATUS_SERVER_ERROR: 500
+    STATUS_SERVER_ERROR: 500,
   };
   var xhr;
 
@@ -61,6 +61,6 @@
       useServer(success, fail);
       xhr.open('POST', Url.SAVE);
       xhr.send(formData);
-    }
+    },
   };
 })();

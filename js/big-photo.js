@@ -81,7 +81,7 @@
   }
 
   window.bigPicture = {
-    open: showBigPicture
+    open: showBigPicture,
   };
 
 })();

@@ -70,7 +70,7 @@
   }
 
   window.filter = {
-    init: showLoadSuccess
+    init: showLoadSuccess,
   };
 })();
 

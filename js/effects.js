@@ -7,7 +7,7 @@
     'sepia': 1,
     'marvin': 100,
     'phobos': 3,
-    'heat': 3
+    'heat': 3,
   };
   var effectLevel = document.querySelector('.effect-level');
   var slider = effectLevel.querySelector('.effect-level__pin');

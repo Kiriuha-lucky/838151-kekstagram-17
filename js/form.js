@@ -41,6 +41,7 @@
     function outlineColorChanger() {
       target.style.outline = '2px solid red';
     }
+
     var errorMessage;
 
     arr.forEach(function (elem, k) {

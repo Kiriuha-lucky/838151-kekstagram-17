@@ -47,6 +47,6 @@
   window.load.load(window.filter.init, onError);
 
   window.gallery = {
-    render: displayPictures
+    render: displayPictures,
   };
 })();
