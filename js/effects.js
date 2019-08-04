@@ -47,7 +47,6 @@
   var effectsRadioElements = document.querySelectorAll('.effects__radio');
   var imgUploadPreview = document.querySelector('.img-upload__preview');
 
-
   function getEffectStyle(ef, value) {
     var currentEffect = ef.toUpperCase();
     var curValue = (value) ? value * Effect[currentEffect].defaultValue : Effect[currentEffect].defaultValue;
