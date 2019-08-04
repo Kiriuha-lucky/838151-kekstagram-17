@@ -18,7 +18,7 @@
     },
     PHOTOS_QUANTITY: 25,
 
-    debounce: function (cb) {
+    debounce: function (bounce) {
       var lastTimeout = null;
 
       return function () {
@@ -27,7 +27,7 @@
           window.clearTimeout(lastTimeout);
         }
         lastTimeout = window.setTimeout(function () {
-          cb.apply(null, parameters);
+          bounce.apply(null, parameters);
         }, DEBOUNCE_INTERVAL);
       };
     },
