@@ -4,7 +4,9 @@
   var DEFAULT_FILTER_VALUE = 100;
   var MAX_HASHTAGS = 5;
   var MAX_HASHTAG_LENGTH = 20;
+  var MIN_HASHTAG_LENGTH = 2;
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var CHECK_COLOR = '2px solid red';
   var uploadFile = document.querySelector('#upload-file');
   var uploadOverlay = document.querySelector('.img-upload__overlay');
   var uploadClose = document.querySelector('.img-upload__cancel');
@@ -39,7 +41,7 @@
 
   function checkHashtag(arr, target) {
     function outlineColorChanger() {
-      target.style.outline = '2px solid red';
+      target.style.outline = CHECK_COLOR;
     }
 
     var errorMessage;
@@ -54,7 +56,7 @@
       } else if (arr.length > MAX_HASHTAGS) {
         outlineColorChanger();
         errorMessage = 'Хеш тегов не может быть больше ' + MAX_HASHTAGS;
-      } else if (elem === '#' && elem.length < 2) {
+      } else if (elem === '#' && elem.length < MIN_HASHTAG_LENGTH) {
         outlineColorChanger();
         errorMessage = 'Хеш тег не может состоять из одной решётки';
       }
@@ -91,11 +93,11 @@
 
   function onPopupEscPress(evt) {
     if (textDescription !== document.activeElement && textHashtags !== document.activeElement) {
-      window.util.isEscEvent(evt, closePopup);
+      window.util.isEscEvent(evt, onClosePopupClick);
     }
   }
 
-  function openPopup() {
+  function onOpenPopupChange() {
 
     scaleInput.value = DEFAULT_FILTER_VALUE;
     effectsRadioElements[0].checked = true;
@@ -105,7 +107,7 @@
     uploadOverlay.classList.remove('hidden');
   }
 
-  function closePopup() {
+  function onClosePopupClick() {
     uploadOverlay.classList.add('hidden');
     img.style.filter = 'none';
     imgUploadPreview.style.transform = '';
@@ -118,9 +120,9 @@
     document.removeEventListener('keydown', onPopupEscPress);
   }
 
-  uploadFile.addEventListener('change', openPopup);
+  uploadFile.addEventListener('change', onOpenPopupChange);
 
-  uploadClose.addEventListener('click', closePopup);
+  uploadClose.addEventListener('click', onClosePopupClick);
 
   function onSuccessMessage() {
     var element = successTemplate.cloneNode(true);
@@ -151,7 +153,7 @@
     document.addEventListener('keydown', onSuccessEscPress);
     document.addEventListener('click', onSuccessClick);
 
-    closePopup();
+    onClosePopupClick();
   }
 
   function onErrorMessage() {
@@ -185,7 +187,7 @@
     document.addEventListener('keydown', onErrorEscPress);
     document.addEventListener('click', onErrorClick);
 
-    closePopup();
+    onClosePopupClick();
   }
 
   imgUploadForm.addEventListener('submit', function (evt) {
