@@ -29,16 +29,14 @@
 
   function getNewPhotos(photos) {
     var copyPhotos = photos.slice();
-    return copyPhotos.sort(randomPhoto).slice(0, NEW_PICTURES);
+    return copyPhotos.sort(function () {
+      return Math.random() - 0.5;
+    }).slice(0, NEW_PICTURES);
   }
 
-  var randomPhoto = function () {
-    return Math.random() - 0.5;
-  };
-
   function onFilterButtonClick(buttonElement) {
-    filtersButton.forEach(function (item) {
-      item.classList.remove('img-filters__button--active');
+    filtersButton.forEach(function (button) {
+      button.classList.remove('img-filters__button--active');
     });
 
     buttonElement.classList.add('img-filters__button--active');
