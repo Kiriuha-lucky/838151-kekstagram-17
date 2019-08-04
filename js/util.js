@@ -2,7 +2,6 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
   var DEBOUNCE_INTERVAL = 500;
 
   window.util = {
@@ -11,14 +10,9 @@
         action();
       }
     },
-    isEnterEvent: function (evt, action) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        action();
-      }
-    },
     PHOTOS_QUANTITY: 25,
 
-    debounce: function (cb) {
+    debounce: function (bounce) {
       var lastTimeout = null;
 
       return function () {
@@ -27,7 +21,7 @@
           window.clearTimeout(lastTimeout);
         }
         lastTimeout = window.setTimeout(function () {
-          cb.apply(null, parameters);
+          bounce.apply(null, parameters);
         }, DEBOUNCE_INTERVAL);
       };
     },

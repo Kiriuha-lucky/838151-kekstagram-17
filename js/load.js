@@ -4,13 +4,13 @@
   var TIMEOUT = 10000;
   var Url = {
     LOAD: 'https://js.dump.academy/kekstagram/data',
-    SAVE: 'https://js.dump.academy/kekstagram'
+    SAVE: 'https://js.dump.academy/kekstagram',
   };
   var Status = {
     STATUS_OK: 200,
     STATUS_INVALID_REQUEST: 400,
     STATUS_RESOURCE_IS_NOT_FOUND: 404,
-    STATUS_SERVER_ERROR: 500
+    STATUS_SERVER_ERROR: 500,
   };
   var xhr;
 
@@ -29,7 +29,7 @@
           errorMessage = 'ОШИБКА! Неверный запрос! (400)';
           break;
         case Status.STATUS_RESOURCE_IS_NOT_FOUND:
-          errorMessage = 'ОШИБКА! Ззапрашиваемый ресурс не найден! (404)';
+          errorMessage = 'ОШИБКА! Запрашиваемый ресурс не найден! (404)';
           break;
         case Status.STATUS_SERVER_ERROR:
           errorMessage = 'ОШИБКА! На сервере произошла ошибка! (500)';
@@ -51,7 +51,7 @@
     });
   }
 
-  window.backend = {
+  window.load = {
     load: function (success, fail) {
       useServer(success, fail);
       xhr.open('GET', Url.LOAD);
@@ -61,6 +61,6 @@
       useServer(success, fail);
       xhr.open('POST', Url.SAVE);
       xhr.send(formData);
-    }
+    },
   };
 })();

@@ -1,7 +1,7 @@
 'use strict';
+
 (function () {
   var COMMENT_COUNT = 5;
-
   var bigPicture = document.querySelector('.big-picture');
   var urlPicture = bigPicture.querySelector('.big-picture__img img');
   var likesCount = bigPicture.querySelector('.likes-count');
@@ -82,7 +82,7 @@
   }
 
   window.bigPicture = {
-    open: showBigPicture
+    open: showBigPicture,
   };
 
 })();
