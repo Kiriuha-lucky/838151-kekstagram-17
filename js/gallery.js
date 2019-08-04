@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ERROR_TEXT_SIZE = 50;
+  var ERROR_POSITION = 0;
   var pictureTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');
@@ -36,9 +38,9 @@
     var block = document.createElement('div');
     block.style = 'z-index: 100; text-align: center; background-color: red; color: white;';
     block.style.position = 'absolute';
-    block.style.left = 0;
-    block.style.right = 0;
-    block.style.fontSize = '50px';
+    block.style.left = ERROR_POSITION;
+    block.style.right = ERROR_POSITION;
+    block.style.fontSize = ERROR_TEXT_SIZE + 'px';
 
     block.textContent = errorMessage;
     document.body.insertAdjacentElement('beforebegin', block);

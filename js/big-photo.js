@@ -10,14 +10,15 @@
   var commentLoader = bigPicture.querySelector('.comments-loader');
   var description = document.querySelector('.social__caption');
   var closeButton = bigPicture.querySelector('.big-picture__cancel');
+  var commentsPart = document.createDocumentFragment();
 
   function onPopupEscPress(evt) {
-    window.util.isEscEvent(evt, closeWindow);
+    window.util.isEscEvent(evt, onCloseWindowClick);
   }
 
-  function closeWindow() {
+  function onCloseWindowClick() {
     bigPicture.classList.add('hidden');
-    closeButton.removeEventListener('click', closeWindow);
+    closeButton.removeEventListener('click', onCloseWindowClick);
     document.removeEventListener('keydown', onPopupEscPress);
   }
 
@@ -46,7 +47,7 @@
     renderComments(photo.comments);
 
     bigPicture.classList.remove('hidden');
-    closeButton.addEventListener('click', closeWindow);
+    closeButton.addEventListener('click', onCloseWindowClick);
     document.addEventListener('keydown', onPopupEscPress);
 
     function renderComments(comments) {
@@ -62,8 +63,10 @@
       function renderCommentsStep() {
         var lastIndex = Math.min(currentIndex + COMMENT_COUNT, comments.length);
         for (var i = currentIndex; i < lastIndex; i++) {
-          commentsList.appendChild(renderComment(comments[i]));
+          commentsPart.appendChild(renderComment(comments[i]));
         }
+
+        commentsList.appendChild(commentsPart);
 
         currentIndex = i;
         commentsCountElement.textContent = currentIndex + ' из ' + comments.length + ' комментариев';

@@ -12,7 +12,7 @@
 
   function setImagePreviewScale(value) {
     scaleInput.value = value + '%';
-    imgUploadPreview.style.transform = 'scale(' + value / 100 + ')';
+    imgUploadPreview.style.transform = 'scale(' + value / SIZE_MAX + ')';
   }
 
   function reduceZoom() {

@@ -1,14 +1,45 @@
 'use strict';
 
 (function () {
-  var DEFAULT_EFFECTS_VALUES = {
-    'none': '',
-    'chrome': 1,
-    'sepia': 1,
-    'marvin': 100,
-    'phobos': 3,
-    'heat': 3,
+  var Effect = {
+    CHROME: {
+      name: 'chrome',
+      effect: 'grayscale',
+      defaultValue: 1,
+      unit: '',
+    },
+    SEPIA: {
+      name: 'sepia',
+      effect: 'sepia',
+      defaultValue: 1,
+      unit: '',
+    },
+    MARVIN: {
+      name: 'marvin',
+      effect: 'invert',
+      defaultValue: 100,
+      unit: '%',
+    },
+    PHOBOS: {
+      name: 'phobos',
+      effect: 'blur',
+      defaultValue: 3,
+      unit: 'px',
+    },
+    HEAT: {
+      name: 'heat',
+      effect: 'brightness',
+      defaultValue: 3,
+      unit: '',
+    },
+    NONE: {
+      name: 'none',
+      effect: 'none',
+      defaultValue: 'none',
+      unit: 'none',
+    },
   };
+
   var effectLevel = document.querySelector('.effect-level');
   var slider = effectLevel.querySelector('.effect-level__pin');
   var levelLine = effectLevel.querySelector('.effect-level__line');
@@ -16,60 +47,25 @@
   var effectsRadioElements = document.querySelectorAll('.effects__radio');
   var imgUploadPreview = document.querySelector('.img-upload__preview');
 
-  function addFilterClassname(filterType) {
+
+  function getEffectStyle(ef, value) {
+    var currentEffect = ef.toUpperCase();
+    var curValue = (value) ? value * Effect[currentEffect].defaultValue : Effect[currentEffect].defaultValue;
+    imgUploadPreview.classList.add('effects__preview--' + Effect[currentEffect].name);
+    return (currentEffect === 'none') ? 'none' : Effect[currentEffect].effect + '(' + curValue + Effect[currentEffect].unit + ')';
+  }
+
+  function onEffectsChange(evt) {
     imgUploadPreview.className = 'img-upload__preview';
-
-    switch (filterType) {
-      case 'chrome':
-        imgUploadPreview.classList.add('effects__preview--chrome');
-        break;
-      case 'sepia':
-        imgUploadPreview.classList.add('effects__preview--sepia');
-        break;
-      case 'marvin':
-        imgUploadPreview.classList.add('effects__preview--blur');
-        break;
-      case 'phobos':
-        imgUploadPreview.classList.add('effects__preview--phobos');
-        break;
-      case 'heat':
-        imgUploadPreview.classList.add('effects__preview--heat');
-        break;
-      case 'none':
-        imgUploadPreview.classList.add('effects__preview--none');
-        break;
-    }
-  }
-
-  function getEffectStyle(effect, value) {
-    var curValue = (value) ? value * DEFAULT_EFFECTS_VALUES[effect] : DEFAULT_EFFECTS_VALUES[effect];
-
-    switch (effect) {
-      case 'chrome':
-        return 'grayscale(' + curValue + ')';
-      case 'sepia':
-        return 'sepia(' + curValue + ')';
-      case 'marvin':
-        return 'invert(' + curValue + '%)';
-      case 'phobos':
-        return 'blur(' + curValue + 'px)';
-      case 'heat':
-        return 'brightness(' + curValue + ')';
-      default:
-        return DEFAULT_EFFECTS_VALUES.none;
-    }
-  }
-
-  function changeEffects(evt) {
+    imgUploadPreview.style.filter = 'none';
     var effect = evt.target.value;
 
     effectLevel.classList[(effect !== 'none') ? 'remove' : 'add']('hidden');
     imgUploadPreview.style.filter = getEffectStyle(effect);
-    addFilterClassname(effect);
   }
 
   effectsRadioElements.forEach(function (item) {
-    item.addEventListener('change', changeEffects);
+    item.addEventListener('change', onEffectsChange);
   });
 
   function changeIntensityEffect() {

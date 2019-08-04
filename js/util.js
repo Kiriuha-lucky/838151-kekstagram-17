@@ -10,7 +10,6 @@
         action();
       }
     },
-    PHOTOS_QUANTITY: 25,
 
     debounce: function (bounce) {
       var lastTimeout = null;

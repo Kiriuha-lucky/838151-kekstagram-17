@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var EFFECT_MIN = 0;
+  var PERCENT_MAX = 100;
+  var MAX_SLIDER_LENGTH = '100%';
   var slider = document.querySelector('.effect-level__pin');
   var levelDepth = document.querySelector('.effect-level__depth');
   var effectsList = document.querySelector('.effects__list');
@@ -8,16 +11,16 @@
 
   window.contentSlider = function (changeIntensityEffect) {
     effectsList.addEventListener('click', function () {
-      slider.style.left = '100%';
-      levelDepth.style.width = '100%';
+      slider.style.left = MAX_SLIDER_LENGTH;
+      levelDepth.style.width = MAX_SLIDER_LENGTH;
     });
 
     function convertCoordInPercent(coord, fullWidth) {
-      var percent = (coord * 100) / fullWidth + '%';
+      var percent = (coord * PERCENT_MAX) / fullWidth + '%';
       return percent;
     }
 
-    function changeSlider(evt) {
+    function onSliderChange(evt) {
       evt.preventDefault();
       var startCoords = evt.clientX;
       var effectLevelLineWidth = levelLine.offsetWidth;
@@ -32,7 +35,7 @@
         var effectPinCoord = slider.offsetLeft - shift;
 
         if (moveEvt.clientX < coordSliderLine.left) {
-          effectPinCoord = 0;
+          effectPinCoord = EFFECT_MIN;
         }
 
         if (moveEvt.clientX > coordSliderLineRight) {
@@ -57,6 +60,6 @@
       document.addEventListener('mouseup', onMouseUp);
     }
 
-    slider.addEventListener('mousedown', changeSlider);
+    slider.addEventListener('mousedown', onSliderChange);
   };
 })();
